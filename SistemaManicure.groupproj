@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{572ED920-12A7-4508-897C-F7507F7E2FBD}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="SimoneManicure.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="SimoneManicure">
+        <MSBuild Projects="SimoneManicure.dproj"/>
+    </Target>
+    <Target Name="SimoneManicure:Clean">
+        <MSBuild Projects="SimoneManicure.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SimoneManicure:Make">
+        <MSBuild Projects="SimoneManicure.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="SimoneManicure"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="SimoneManicure:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="SimoneManicure:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
