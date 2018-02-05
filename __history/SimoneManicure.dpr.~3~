@@ -3,16 +3,14 @@ program SimoneManicure;
 uses
   Vcl.Forms,
   UMain in 'src\UMain.pas' {FrmMain},
-  UProducts in 'src\UProducts.pas' {FrmProducts},
-  UDataModule in 'src\UDataModule.pas' {DmManicure: TDataModule},
-  UValidator in 'src\UValidator.pas';
+  UProducts in 'src\UProducts.pas' {Form1};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TDmManicure, DmManicure);
   Application.CreateForm(TFrmMain, FrmMain);
+  Application.CreateForm(TForm1, Form1);
   Application.Run;
 end.

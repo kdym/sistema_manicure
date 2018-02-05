@@ -2,7 +2,7 @@ object FrmMain: TFrmMain
   Left = 0
   Top = 0
   Caption = 'Simone Manicure'
-  ClientHeight = 438
+  ClientHeight = 458
   ClientWidth = 650
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -20,7 +20,6 @@ object FrmMain: TFrmMain
     Top = 16
     object Produtos1: TMenuItem
       Caption = 'Produtos'
-      OnClick = Produtos1Click
     end
   end
 end

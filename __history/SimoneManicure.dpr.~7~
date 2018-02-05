@@ -4,8 +4,7 @@ uses
   Vcl.Forms,
   UMain in 'src\UMain.pas' {FrmMain},
   UProducts in 'src\UProducts.pas' {FrmProducts},
-  UDataModule in 'src\UDataModule.pas' {DmManicure: TDataModule},
-  UValidator in 'src\UValidator.pas';
+  UDataModule in 'src\UDataModule.pas' {DmManicure: TDataModule};
 
 {$R *.res}
 

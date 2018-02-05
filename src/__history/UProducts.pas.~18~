@@ -1,0 +1,170 @@
+unit UProducts;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Data.DB,
+  Vcl.Grids, Vcl.DBGrids, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, Vcl.Mask, JvExMask, JvToolEdit, JvBaseEdits,
+  JvDBControls, Vcl.DBCtrls;
+
+type
+  TFrmProducts = class(TForm)
+    BtNew: TBitBtn;
+    BtEdit: TBitBtn;
+    BtSave: TBitBtn;
+    BtCancel: TBitBtn;
+    BtDelete: TBitBtn;
+    EdSearch: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    GrdProducts: TDBGrid;
+    EDescricao: TLabel;
+    EValor: TLabel;
+    ECodigoBarras: TLabel;
+    DsProducts: TDataSource;
+    EdDescricao: TDBEdit;
+    EdValor: TJvDBCalcEdit;
+    EdCodigoBarras: TDBEdit;
+    Label4: TLabel;
+    EStartQuantity: TLabel;
+    EdStartQuantity: TDBEdit;
+    procedure BtNewClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure BtSaveClick(Sender: TObject);
+  private
+    { Private declarations }
+    procedure DisableButtons;
+    procedure EnableButtons;
+    procedure ClearFields;
+    procedure EnableFields;
+    procedure DisableFields;
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmProducts: TFrmProducts;
+  IsInsert: boolean;
+
+implementation
+
+{$R *.dfm}
+
+uses UDataModule, UValidator;
+
+{ TFrmProducts }
+
+procedure TFrmProducts.BtNewClick(Sender: TObject);
+begin
+  DisableButtons;
+  ClearFields;
+  EnableFields;
+
+  EdDescricao.SetFocus;
+
+  DsProducts.DataSet.Append;
+end;
+
+procedure TFrmProducts.BtSaveClick(Sender: TObject);
+var
+  Error: boolean;
+begin
+  Error := false;
+
+  EDescricao.Visible := false;
+  EValor.Visible := false;
+  ECodigoBarras.Visible := false;
+
+  if Trim(EdDescricao.Text) = '' then
+  begin
+    EDescricao.Caption := 'Campo Obrigatório';
+    EDescricao.Visible := true;
+    Error := true;
+  end;
+
+  if Trim(EdValor.Text) = '' then
+  begin
+    EValor.Caption := 'Campo Obrigatório';
+    EValor.Visible := true;
+    Error := true;
+  end;
+
+  if Trim(EdCodigoBarras.Text) = '' then
+  begin
+    ECodigoBarras.Caption := 'Campo Obrigatório';
+    ECodigoBarras.Visible := true;
+    Error := true;
+  end
+  else
+  begin
+    if not UValidator.IsNumber(EdCodigoBarras.Text) then
+    begin
+      ECodigoBarras.Caption := 'Somente Números';
+      ECodigoBarras.Visible := true;
+      Error := true;
+    end;
+  end;
+
+  if not Error then
+  begin
+    with DsProducts.DataSet do
+    begin
+      Post;
+
+      DisableFields;
+      EnableButtons;
+    end;
+  end;
+end;
+
+procedure TFrmProducts.ClearFields;
+begin
+  EdDescricao.Text := '';
+  EdValor.Text := '';
+  EdCodigoBarras.Text := '';
+end;
+
+procedure TFrmProducts.DisableButtons;
+begin
+  BtNew.Enabled := false;
+  BtEdit.Enabled := false;
+  BtSave.Enabled := true;
+  BtCancel.Enabled := true;
+  BtDelete.Enabled := false;
+end;
+
+procedure TFrmProducts.DisableFields;
+begin
+  EdDescricao.Enabled := false;
+  EdValor.Enabled := false;
+  EdCodigoBarras.Enabled := false;
+end;
+
+procedure TFrmProducts.EnableButtons;
+begin
+  BtNew.Enabled := true;
+  BtEdit.Enabled := true;
+  BtSave.Enabled := false;
+  BtCancel.Enabled := false;
+  BtDelete.Enabled := true;
+end;
+
+procedure TFrmProducts.EnableFields;
+begin
+  EdDescricao.Enabled := true;
+  EdValor.Enabled := true;
+  EdCodigoBarras.Enabled := true;
+end;
+
+procedure TFrmProducts.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  FrmProducts := nil;
+end;
+
+end.

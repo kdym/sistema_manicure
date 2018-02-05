@@ -84,6 +84,10 @@
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppEnableHighDPI>true</AppEnableHighDPI>
+        <DCC_ExeOutput>.\</DCC_ExeOutput>
+        <DCC_DcuOutput>.\src</DCC_DcuOutput>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -100,9 +104,19 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="src\UMain.pas">
-            <Form>Form1</Form>
+            <Form>FrmMain</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="src\UProducts.pas">
+            <Form>FrmProducts</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="src\UDataModule.pas">
+            <Form>DmManicure</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="src\UValidator.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -123,9 +137,17 @@
                 <Source>
                     <Source Name="MainSource">SimoneManicure.dpr</Source>
                 </Source>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k250.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp250.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k250.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp250.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Program Files (x86)\FastReport 5 VCL Trial\LibD25\dclfrxIBX25.bpl">FastReport 5.0 IBX Components</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Program Files (x86)\FastReport 5 VCL Trial\LibD25\dclfsIBX25.bpl">FastScript 1.9 IBX Components</Excluded_Packages>
+                </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="Win32\Debug\SimoneManicure.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="SimoneManicure.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>SimoneManicure.exe</RemoteName>
                         <Overwrite>true</Overwrite>
