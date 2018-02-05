@@ -5,7 +5,7 @@ object FrmProducts: TFrmProducts
   BorderStyle = bsDialog
   Caption = 'Produtos'
   ClientHeight = 541
-  ClientWidth = 542
+  ClientWidth = 681
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -41,7 +41,7 @@ object FrmProducts: TFrmProducts
   object EDescricao: TLabel
     Left = 128
     Top = 12
-    Width = 401
+    Width = 545
     Height = 13
     Alignment = taRightJustify
     AutoSize = False
@@ -57,7 +57,7 @@ object FrmProducts: TFrmProducts
   object EValor: TLabel
     Left = 104
     Top = 58
-    Width = 192
+    Width = 283
     Height = 13
     Alignment = taRightJustify
     AutoSize = False
@@ -73,7 +73,7 @@ object FrmProducts: TFrmProducts
   object ECodigoBarras: TLabel
     Left = 160
     Top = 106
-    Width = 136
+    Width = 227
     Height = 13
     Alignment = taRightJustify
     AutoSize = False
@@ -87,16 +87,16 @@ object FrmProducts: TFrmProducts
     Visible = False
   end
   object Label4: TLabel
-    Left = 301
+    Left = 393
     Top = 58
     Width = 86
     Height = 13
     Caption = 'Quantidade Inicial'
   end
   object EStartQuantity: TLabel
-    Left = 398
+    Left = 485
     Top = 58
-    Width = 131
+    Width = 188
     Height = 13
     Alignment = taRightJustify
     AutoSize = False
@@ -417,7 +417,7 @@ object FrmProducts: TFrmProducts
   object EdSearch: TEdit
     Left = 63
     Top = 511
-    Width = 466
+    Width = 610
     Height = 21
     TabOrder = 5
     TextHint = 'Buscar...'
@@ -426,7 +426,7 @@ object FrmProducts: TFrmProducts
   object GrdProducts: TDBGrid
     Left = 63
     Top = 160
-    Width = 466
+    Width = 610
     Height = 345
     DataSource = DsProducts
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -466,7 +466,7 @@ object FrmProducts: TFrmProducts
   object EdDescricao: TDBEdit
     Left = 63
     Top = 31
-    Width = 466
+    Width = 610
     Height = 21
     DataField = 'descricao'
     DataSource = DsProducts
@@ -476,7 +476,7 @@ object FrmProducts: TFrmProducts
   object EdValor: TJvDBCalcEdit
     Left = 63
     Top = 77
-    Width = 233
+    Width = 324
     Height = 21
     Flat = False
     ParentFlat = False
@@ -493,7 +493,7 @@ object FrmProducts: TFrmProducts
   object EdCodigoBarras: TDBEdit
     Left = 63
     Top = 125
-    Width = 233
+    Width = 324
     Height = 21
     DataField = 'codigo_barras'
     DataSource = DsProducts
@@ -501,9 +501,9 @@ object FrmProducts: TFrmProducts
     TabOrder = 10
   end
   object EdStartQuantity: TEdit
-    Left = 302
+    Left = 393
     Top = 77
-    Width = 227
+    Width = 280
     Height = 21
     Enabled = False
     TabOrder = 9
@@ -517,7 +517,8 @@ object FrmProducts: TFrmProducts
     Active = True
     Connection = DmManicure.Connection
     SQL.Strings = (
-      'select * from products where descricao like :search')
+      'select * from products where descricao like :search'
+      'order by descricao')
     Left = 16
     Top = 288
     ParamData = <
@@ -527,5 +528,35 @@ object FrmProducts: TFrmProducts
         ParamType = ptInput
         Value = '%%'
       end>
+    object QryProductsid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object QryProductsdescricao: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'descricao'
+      Origin = 'descricao'
+      Size = 32767
+    end
+    object QryProductsquantidade: TIntegerField
+      DisplayLabel = 'Quantidade'
+      FieldName = 'quantidade'
+      Origin = 'quantidade'
+    end
+    object QryProductscodigo_barras: TStringField
+      DisplayLabel = 'C'#243'digo de Barras'
+      FieldName = 'codigo_barras'
+      Origin = 'codigo_barras'
+      Size = 32767
+    end
+    object QryProductsvalor: TBCDField
+      DisplayLabel = 'Valor'
+      FieldName = 'valor'
+      Origin = 'valor'
+      currency = True
+      Precision = 10
+      Size = 2
+    end
   end
 end

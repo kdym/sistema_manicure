@@ -1,0 +1,65 @@
+unit UStock;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.Mask, JvExMask, JvSpin,
+  Vcl.StdCtrls, Vcl.Buttons, Vcl.Grids, Vcl.DBGrids;
+
+type
+  TFrmStock = class(TForm)
+    GrdProducts: TDBGrid;
+    Label1: TLabel;
+    EdSearchDescricao: TEdit;
+    Label2: TLabel;
+    BtSearch: TBitBtn;
+    EdSearchCodigoBarras: TEdit;
+    EdAddRemove: TJvSpinEdit;
+    Label3: TLabel;
+    BtSave: TBitBtn;
+    QryProducts: TFDQuery;
+    DsProducts: TDataSource;
+    QryProductsid: TFDAutoIncField;
+    QryProductsdescricao: TStringField;
+    QryProductsquantidade: TIntegerField;
+    QryProductscodigo_barras: TStringField;
+    QryProductsvalor: TBCDField;
+    procedure BtSearchClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmStock: TFrmStock;
+
+implementation
+
+{$R *.dfm}
+
+uses UDataModule;
+
+procedure TFrmStock.BtSearchClick(Sender: TObject);
+begin
+  with QryProducts do
+  begin
+    Close;
+    ParamByName('name').Value := '%' + EdSearchDescricao.Text + '%';
+    ParamByName('code').Value := EdSearchCodigoBarras.Text;
+    Open;
+  end;
+end;
+
+procedure TFrmStock.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  FrmStock := nil;
+end;
+
+end.

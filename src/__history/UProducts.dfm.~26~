@@ -86,6 +86,29 @@ object FrmProducts: TFrmProducts
     ParentFont = False
     Visible = False
   end
+  object Label4: TLabel
+    Left = 301
+    Top = 58
+    Width = 86
+    Height = 13
+    Caption = 'Quantidade Inicial'
+  end
+  object EStartQuantity: TLabel
+    Left = 398
+    Top = 58
+    Width = 131
+    Height = 13
+    Alignment = taRightJustify
+    AutoSize = False
+    Caption = 'EDescricao'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clRed
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    Visible = False
+  end
   object BtNew: TBitBtn
     Left = 8
     Top = 8
@@ -205,12 +228,14 @@ object FrmProducts: TFrmProducts
       B1B1B1B1B1999999FF00FFFF00FFFF00FFAAAAAA8C8C8CFF00FF}
     NumGlyphs = 2
     TabOrder = 1
+    OnClick = BtEditClick
   end
   object BtSave: TBitBtn
     Left = 8
     Top = 72
     Width = 41
     Height = 33
+    Default = True
     Enabled = False
     Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
@@ -265,6 +290,7 @@ object FrmProducts: TFrmProducts
       00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
     NumGlyphs = 2
     TabOrder = 2
+    OnClick = BtSaveClick
   end
   object BtCancel: TBitBtn
     Left = 8
@@ -325,6 +351,7 @@ object FrmProducts: TFrmProducts
       00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
     NumGlyphs = 2
     TabOrder = 3
+    OnClick = BtCancelClick
   end
   object BtDelete: TBitBtn
     Left = 8
@@ -385,6 +412,7 @@ object FrmProducts: TFrmProducts
       00FFFF00FFFF00FFFF00FFA6A6A6A6A6A6A6A6A6FF00FFFF00FF}
     NumGlyphs = 2
     TabOrder = 4
+    OnClick = BtDeleteClick
   end
   object EdSearch: TEdit
     Left = 63
@@ -393,34 +421,59 @@ object FrmProducts: TFrmProducts
     Height = 21
     TabOrder = 5
     TextHint = 'Buscar...'
-  end
-  object EdDescricao: TEdit
-    Left = 63
-    Top = 31
-    Width = 466
-    Height = 21
-    TabOrder = 6
-  end
-  object EdCodigoBarra: TEdit
-    Left = 63
-    Top = 125
-    Width = 233
-    Height = 21
-    TabOrder = 7
+    OnKeyDown = EdSearchKeyDown
   end
   object GrdProducts: TDBGrid
     Left = 63
     Top = 160
     Width = 466
     Height = 345
-    TabOrder = 8
+    DataSource = DsProducts
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+    TabOrder = 6
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
+    OnCellClick = GrdProductsCellClick
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'descricao'
+        Width = 264
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'valor'
+        Width = 86
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'quantidade'
+        Width = 87
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'codigo_barras'
+        Width = 127
+        Visible = True
+      end>
   end
-  object EdValor: TJvCalcEdit
+  object EdDescricao: TDBEdit
+    Left = 63
+    Top = 31
+    Width = 466
+    Height = 21
+    DataField = 'descricao'
+    DataSource = DsProducts
+    Enabled = False
+    TabOrder = 7
+  end
+  object EdValor: TJvDBCalcEdit
     Left = 63
     Top = 77
     Width = 233
@@ -428,14 +481,82 @@ object FrmProducts: TFrmProducts
     Flat = False
     ParentFlat = False
     DisplayFormat = ',0.00'
+    Enabled = False
     FormatOnEditing = True
     ShowButton = False
-    TabOrder = 9
+    TabOrder = 8
+    Value = 22.990000000000000000
     DecimalPlacesAlwaysShown = True
+    DataField = 'valor'
+    DataSource = DsProducts
+  end
+  object EdCodigoBarras: TDBEdit
+    Left = 63
+    Top = 125
+    Width = 233
+    Height = 21
+    DataField = 'codigo_barras'
+    DataSource = DsProducts
+    Enabled = False
+    TabOrder = 10
+  end
+  object EdStartQuantity: TEdit
+    Left = 302
+    Top = 77
+    Width = 227
+    Height = 21
+    Enabled = False
+    TabOrder = 9
+  end
+  object DsProducts: TDataSource
+    DataSet = QryProducts
+    Left = 16
+    Top = 224
   end
   object QryProducts: TFDQuery
+    Active = True
     Connection = DmManicure.Connection
+    SQL.Strings = (
+      'select * from products where descricao like :search'
+      'order by descricao')
     Left = 16
-    Top = 192
+    Top = 288
+    ParamData = <
+      item
+        Name = 'SEARCH'
+        DataType = ftString
+        ParamType = ptInput
+        Value = '%%'
+      end>
+    object QryProductsid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object QryProductsdescricao: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'descricao'
+      Origin = 'descricao'
+      Size = 32767
+    end
+    object QryProductsquantidade: TIntegerField
+      DisplayLabel = 'Quantidade'
+      FieldName = 'quantidade'
+      Origin = 'quantidade'
+    end
+    object QryProductscodigo_barras: TStringField
+      DisplayLabel = 'C'#243'digo de Barras'
+      FieldName = 'codigo_barras'
+      Origin = 'codigo_barras'
+      Size = 32767
+    end
+    object QryProductsvalor: TBCDField
+      DisplayLabel = 'Valor'
+      FieldName = 'valor'
+      Origin = 'valor'
+      currency = True
+      Precision = 10
+      Size = 2
+    end
   end
 end

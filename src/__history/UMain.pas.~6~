@@ -5,15 +5,13 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.Imaging.jpeg,
-  Vcl.ExtCtrls, Vcl.Imaging.pngimage;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus;
 
 type
   TFrmMain = class(TForm)
     MainMenu1: TMainMenu;
     Produtos1: TMenuItem;
     Estoque1: TMenuItem;
-    Image1: TImage;
     procedure Produtos1Click(Sender: TObject);
     procedure Estoque1Click(Sender: TObject);
   private

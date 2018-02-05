@@ -35,11 +35,6 @@ type
     EStartQuantity: TLabel;
     EdStartQuantity: TEdit;
     QryProducts: TFDQuery;
-    QryProductsid: TFDAutoIncField;
-    QryProductsdescricao: TStringField;
-    QryProductsquantidade: TIntegerField;
-    QryProductscodigo_barras: TStringField;
-    QryProductsvalor: TBCDField;
     procedure BtNewClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BtSaveClick(Sender: TObject);

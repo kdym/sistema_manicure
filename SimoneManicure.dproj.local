@@ -9,12 +9,15 @@
     <Transaction>2018/02/02 15:03:11.000.552,E:\ProjetosNoob\sistema_manicure\src\UMain.dfm=C:\Users\sKnMetal\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
     <Transaction>2018/02/02 15:03:17.000.132,E:\ProjetosNoob\sistema_manicure\SimoneManicure.dproj=C:\Users\sKnMetal\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
     <Transaction>2018/02/02 15:24:37.000.117,=E:\ProjetosNoob\sistema_manicure\Unit1.pas</Transaction>
-    <Transaction>2018/02/02 15:26:04.000.551,E:\ProjetosNoob\sistema_manicure\src\UProducts.pas=E:\ProjetosNoob\sistema_manicure\Unit1.pas</Transaction>
     <Transaction>2018/02/02 15:26:04.000.551,E:\ProjetosNoob\sistema_manicure\src\UProducts.dfm=E:\ProjetosNoob\sistema_manicure\Unit1.dfm</Transaction>
+    <Transaction>2018/02/02 15:26:04.000.551,E:\ProjetosNoob\sistema_manicure\src\UProducts.pas=E:\ProjetosNoob\sistema_manicure\Unit1.pas</Transaction>
     <Transaction>2018/02/02 15:53:14.000.034,=E:\ProjetosNoob\sistema_manicure\Unit1.pas</Transaction>
     <Transaction>2018/02/02 15:53:25.000.293,E:\ProjetosNoob\sistema_manicure\src\UDataModule.dfm=E:\ProjetosNoob\sistema_manicure\Unit1.dfm</Transaction>
     <Transaction>2018/02/02 15:53:25.000.293,E:\ProjetosNoob\sistema_manicure\src\UDataModule.pas=E:\ProjetosNoob\sistema_manicure\Unit1.pas</Transaction>
     <Transaction>2018/02/05 09:19:26.853,=E:\ProjetosNoob\sistema_manicure\Unit1.pas</Transaction>
     <Transaction>2018/02/05 09:19:41.424,E:\ProjetosNoob\sistema_manicure\src\UValidator.pas=E:\ProjetosNoob\sistema_manicure\Unit1.pas</Transaction>
+    <Transaction>2018/02/05 10:43:02.790,=E:\ProjetosNoob\sistema_manicure\Unit1.pas</Transaction>
+    <Transaction>2018/02/05 10:43:08.440,E:\ProjetosNoob\sistema_manicure\src\UStock.pas=E:\ProjetosNoob\sistema_manicure\Unit1.pas</Transaction>
+    <Transaction>2018/02/05 10:43:08.440,E:\ProjetosNoob\sistema_manicure\src\UStock.dfm=E:\ProjetosNoob\sistema_manicure\Unit1.dfm</Transaction>
   </Transactions>
 </BorlandProject>

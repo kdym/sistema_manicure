@@ -6,7 +6,7 @@ uses
   UProducts in 'src\UProducts.pas' {FrmProducts},
   UDataModule in 'src\UDataModule.pas' {DmManicure: TDataModule},
   UValidator in 'src\UValidator.pas',
-  UStock in 'src\UStock.pas' {FrmStock};
+  UStock in 'src\UStock.pas' {Form1};
 
 {$R *.res}
 
@@ -15,5 +15,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TDmManicure, DmManicure);
   Application.CreateForm(TFrmMain, FrmMain);
+  Application.CreateForm(TForm1, Form1);
   Application.Run;
 end.

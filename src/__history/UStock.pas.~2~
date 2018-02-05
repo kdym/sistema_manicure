@@ -1,0 +1,46 @@
+unit UStock;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.Mask, JvExMask, JvSpin,
+  Vcl.StdCtrls, Vcl.Buttons, Vcl.Grids, Vcl.DBGrids;
+
+type
+  TFrmStock = class(TForm)
+    DBGrid1: TDBGrid;
+    Label1: TLabel;
+    Edit1: TEdit;
+    Label2: TLabel;
+    BitBtn1: TBitBtn;
+    Edit2: TEdit;
+    JvSpinEdit1: TJvSpinEdit;
+    Label3: TLabel;
+    BitBtn2: TBitBtn;
+    QryProducts: TFDQuery;
+    DsProducts: TDataSource;
+    QryProductsid: TFDAutoIncField;
+    QryProductsdescricao: TStringField;
+    QryProductsquantidade: TIntegerField;
+    QryProductscodigo_barras: TStringField;
+    QryProductsvalor: TBCDField;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmStock: TFrmStock;
+
+implementation
+
+{$R *.dfm}
+
+uses UDataModule;
+
+end.
