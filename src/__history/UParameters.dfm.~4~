@@ -20,14 +20,14 @@ object FrmParameters: TFrmParameters
   object Label1: TLabel
     Left = 8
     Top = 8
-    Width = 137
+    Width = 83
     Height = 13
-    Caption = 'Aviso de Estoque (unidades)'
+    Caption = 'Aviso de Estoque'
   end
   object EStockWarning: TLabel
-    Left = 151
+    Left = 112
     Top = 8
-    Width = 130
+    Width = 169
     Height = 13
     Alignment = taRightJustify
     AutoSize = False
@@ -43,14 +43,14 @@ object FrmParameters: TFrmParameters
   object Label2: TLabel
     Left = 8
     Top = 56
-    Width = 129
+    Width = 99
     Height = 13
-    Caption = 'Aviso de Vencimento (dias)'
+    Caption = 'Aviso de Vencimento'
   end
   object EEndWarning: TLabel
-    Left = 143
+    Left = 112
     Top = 56
-    Width = 138
+    Width = 169
     Height = 13
     Alignment = taRightJustify
     AutoSize = False

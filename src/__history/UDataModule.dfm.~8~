@@ -51,10 +51,6 @@ object DmManicure: TDmManicure
       Precision = 10
       Size = 2
     end
-    object TbProductsvencimento: TDateField
-      FieldName = 'vencimento'
-      Origin = 'vencimento'
-    end
   end
   object FDGUIxWaitCursor1: TFDGUIxWaitCursor
     Provider = 'Forms'

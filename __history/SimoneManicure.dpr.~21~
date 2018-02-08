@@ -11,7 +11,7 @@ uses
   UParametersHelper in 'src\UParametersHelper.pas',
   UStockWarning in 'src\UStockWarning.pas' {FrmStockWarning},
   UEndWarning in 'src\UEndWarning.pas' {FrmEndWarning},
-  UExpireds in 'src\UExpireds.pas' {FrmExpireds};
+  UExpireds in 'src\UExpireds.pas' {Form1};
 
 {$R *.res}
 
@@ -20,5 +20,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TDmManicure, DmManicure);
   Application.CreateForm(TFrmMain, FrmMain);
+  Application.CreateForm(TForm1, Form1);
   Application.Run;
 end.

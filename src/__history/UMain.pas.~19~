@@ -34,7 +34,6 @@ type
     procedure Configuraes1Click(Sender: TObject);
     procedure ImgWarningStockDblClick(Sender: TObject);
     procedure ImgWarningEndDblClick(Sender: TObject);
-    procedure ImgWarningExpiredDblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -51,7 +50,7 @@ implementation
 {$R *.dfm}
 
 uses UProducts, UStock, UDataModule, UParameters, UParametersHelper,
-  UStockWarning, DateUtils, UEndWarning, UExpireds;
+  UStockWarning, DateUtils, UEndWarning;
 
 procedure TFrmMain.CalculateTotals;
 begin
@@ -121,17 +120,17 @@ begin
 
       if FieldByName('vencimento').Value <> Null then
       begin
-        if FieldByName('vencimento').AsDateTime < Now then
+        DaysEnd := DaysBetween(FieldByName('vencimento').AsDateTime, Now);
+
+        if DaysEnd <= StrToInt(EndWarning) then
         begin
-          Inc(TotalExpired);
+          Inc(TotalEndWarning);
         end
         else
         begin
-          DaysEnd := DaysBetween(FieldByName('vencimento').AsDateTime, Now);
-
-          if DaysEnd <= StrToInt(EndWarning) then
+          if FieldByName('vencimento').AsDateTime < Now then
           begin
-            Inc(TotalEndWarning);
+            Inc(TotalExpired);
           end;
         end;
       end;
@@ -204,15 +203,6 @@ begin
   begin
     FrmEndWarning := TFrmEndWarning.Create(self);
     FrmEndWarning.ShowModal;
-  end;
-end;
-
-procedure TFrmMain.ImgWarningExpiredDblClick(Sender: TObject);
-begin
-  if FrmExpireds = nil then
-  begin
-    FrmExpireds := TFrmExpireds.Create(self);
-    FrmExpireds.ShowModal;
   end;
 end;
 

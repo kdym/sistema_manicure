@@ -72,7 +72,7 @@ implementation
 
 {$R *.dfm}
 
-uses UDataModule, UValidator, UMain, UEndWarning, UExpireds;
+uses UDataModule, UValidator, UMain, UEndWarning;
 
 { TFrmProducts }
 
@@ -206,11 +206,6 @@ begin
     if FrmEndWarning <> nil then
     begin
       FrmEndWarning.QryEndWarning.Refresh;
-    end;
-
-    if FrmExpireds <> nil then
-    begin
-      FrmExpireds.QryExpireds.Refresh;
     end;
   end;
 end;

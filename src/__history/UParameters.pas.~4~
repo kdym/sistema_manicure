@@ -13,9 +13,6 @@ type
     EdStockWarning: TEdit;
     EStockWarning: TLabel;
     BtSave: TBitBtn;
-    Label2: TLabel;
-    EEndWarning: TLabel;
-    EdEndWarning: TEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure BtSaveClick(Sender: TObject);
@@ -41,7 +38,6 @@ begin
   Error := false;
 
   EStockWarning.Visible := false;
-  EEndWarning.Visible := false;
 
   if Trim(EdStockWarning.Text) = '' then
   begin
@@ -59,28 +55,10 @@ begin
     end;
   end;
 
-  if Trim(EdEndWarning.Text) = '' then
-  begin
-    EEndWarning.Caption := 'Campo Obrigatório';
-    EEndWarning.Visible := true;
-    Error := true;
-  end
-  else
-  begin
-    if not UValidator.IsNumber(EdEndWarning.Text) then
-    begin
-      EEndWarning.Caption := 'Número inválido';
-      EEndWarning.Visible := true;
-      Error := true;
-    end;
-  end;
-
   if not Error then
   begin
     UParametersHelper.SetParameter(UParametersHelper.StockWarning,
       EdStockWarning.Text);
-    UParametersHelper.SetParameter(UParametersHelper.EndWarning,
-      EdEndWarning.Text);
 
     Close;
   end;
@@ -93,7 +71,7 @@ end;
 
 procedure TFrmParameters.FormCreate(Sender: TObject);
 var
-  StockWarning, EndWarning: String;
+  StockWarning: String;
 begin
   StockWarning := UParametersHelper.GetParameter
     (UParametersHelper.StockWarning);
@@ -105,17 +83,6 @@ begin
   else
   begin
     EdStockWarning.Text := StockWarning;
-  end;
-
-  EndWarning := UParametersHelper.GetParameter(UParametersHelper.EndWarning);
-
-  if EndWarning = '' then
-  begin
-    EdEndWarning.Text := IntToStr(UParametersHelper.DefaultEndWarning);
-  end
-  else
-  begin
-    EdEndWarning.Text := EndWarning;
   end;
 end;
 

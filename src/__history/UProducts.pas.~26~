@@ -72,7 +72,7 @@ implementation
 
 {$R *.dfm}
 
-uses UDataModule, UValidator, UMain, UEndWarning, UExpireds;
+uses UDataModule, UValidator, UMain;
 
 { TFrmProducts }
 
@@ -133,7 +133,6 @@ begin
   EValor.Visible := false;
   ECodigoBarras.Visible := false;
   EStartQuantity.Visible := false;
-  EVencimento.Visible := false;
 
   if Trim(EdDescricao.Text) = '' then
   begin
@@ -201,17 +200,6 @@ begin
     ClearFields;
 
     FrmMain.CalculateTotals;
-    FrmMain.FindWarnings;
-
-    if FrmEndWarning <> nil then
-    begin
-      FrmEndWarning.QryEndWarning.Refresh;
-    end;
-
-    if FrmExpireds <> nil then
-    begin
-      FrmExpireds.QryExpireds.Refresh;
-    end;
   end;
 end;
 

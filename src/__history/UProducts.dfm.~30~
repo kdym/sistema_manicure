@@ -484,12 +484,6 @@ object FrmProducts: TFrmProducts
         FieldName = 'codigo_barras'
         Width = 127
         Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'vencimento'
-        Width = 115
-        Visible = True
       end>
   end
   object EdDescricao: TDBEdit

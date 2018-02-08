@@ -26,15 +26,12 @@ type
     Image5: TImage;
     Image6: TImage;
     Configuraes1: TMenuItem;
-    LbWarningExpired: TLabel;
-    ImgWarningExpired: TImage;
     procedure Produtos1Click(Sender: TObject);
     procedure Estoque1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Configuraes1Click(Sender: TObject);
     procedure ImgWarningStockDblClick(Sender: TObject);
     procedure ImgWarningEndDblClick(Sender: TObject);
-    procedure ImgWarningExpiredDblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -51,7 +48,7 @@ implementation
 {$R *.dfm}
 
 uses UProducts, UStock, UDataModule, UParameters, UParametersHelper,
-  UStockWarning, DateUtils, UEndWarning, UExpireds;
+  UStockWarning, DateUtils, UEndWarning;
 
 procedure TFrmMain.CalculateTotals;
 begin
@@ -80,7 +77,7 @@ end;
 procedure TFrmMain.FindWarnings;
 var
   StockWarning, EndWarning, Buffer: string;
-  TotalStockWarning, TotalEndWarning, TotalExpired, DaysEnd: integer;
+  TotalStockWarning, TotalEndWarning, DaysEnd: integer;
 begin
   StockWarning := UParametersHelper.GetParameter
     (UParametersHelper.StockWarning);
@@ -101,8 +98,6 @@ begin
   LbWarningEnd.Visible := false;
   ImgWarningStock.Visible := false;
   ImgWarningEnd.Visible := false;
-  LbWarningExpired.Visible := false;
-  ImgWarningExpired.Visible := false;
 
   with DmManicure.TbProducts do
   begin
@@ -110,7 +105,6 @@ begin
 
     TotalStockWarning := 0;
     TotalEndWarning := 0;
-    TotalExpired := 0;
 
     while not Eof do
     begin
@@ -121,18 +115,11 @@ begin
 
       if FieldByName('vencimento').Value <> Null then
       begin
-        if FieldByName('vencimento').AsDateTime < Now then
-        begin
-          Inc(TotalExpired);
-        end
-        else
-        begin
-          DaysEnd := DaysBetween(FieldByName('vencimento').AsDateTime, Now);
+        DaysEnd := DaysBetween(Now, FieldByName('vencimento').AsDateTime);
 
-          if DaysEnd <= StrToInt(EndWarning) then
-          begin
-            Inc(TotalEndWarning);
-          end;
+        if DaysEnd <= StrToInt(EndWarning) then
+        begin
+          Inc(TotalEndWarning);
         end;
       end;
 
@@ -173,23 +160,6 @@ begin
     LbWarningEnd.Visible := true;
     ImgWarningEnd.Visible := true;
   end;
-
-  if TotalExpired > 0 then
-  begin
-    if TotalExpired = 1 then
-    begin
-      Buffer := 'produto vencido';
-    end
-    else
-    begin
-      Buffer := 'produtos vencidos';
-    end;
-
-    LbWarningExpired.Caption := Format('Você possui %s %s',
-      [FormatFloat('#,##0', TotalExpired), Buffer]);
-    LbWarningExpired.Visible := true;
-    ImgWarningExpired.Visible := true;
-  end;
 end;
 
 procedure TFrmMain.FormCreate(Sender: TObject);
@@ -204,15 +174,6 @@ begin
   begin
     FrmEndWarning := TFrmEndWarning.Create(self);
     FrmEndWarning.ShowModal;
-  end;
-end;
-
-procedure TFrmMain.ImgWarningExpiredDblClick(Sender: TObject);
-begin
-  if FrmExpireds = nil then
-  begin
-    FrmExpireds := TFrmExpireds.Create(self);
-    FrmExpireds.ShowModal;
   end;
 end;
 

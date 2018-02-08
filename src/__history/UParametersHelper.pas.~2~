@@ -7,9 +7,7 @@ procedure SetParameter(ParameterName: String; Value: String);
 
 const
   DefaultStockWarning = 5;
-  DefaultEndWarning = 5;
   StockWarning = 'stock_warning';
-  EndWarning = 'end_warning';
 
 implementation
 

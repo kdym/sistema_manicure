@@ -130,6 +130,14 @@
             <Form>FrmStockWarning</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="src\UEndWarning.pas">
+            <Form>FrmEndWarning</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="src\UExpireds.pas">
+            <Form>FrmExpireds</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

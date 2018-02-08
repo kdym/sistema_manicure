@@ -9,9 +9,7 @@ uses
   UStock in 'src\UStock.pas' {FrmStock},
   UParameters in 'src\UParameters.pas' {FrmParameters},
   UParametersHelper in 'src\UParametersHelper.pas',
-  UStockWarning in 'src\UStockWarning.pas' {FrmStockWarning},
-  UEndWarning in 'src\UEndWarning.pas' {FrmEndWarning},
-  UExpireds in 'src\UExpireds.pas' {FrmExpireds};
+  UStockWarning in 'src\UStockWarning.pas' {FrmStockWarning};
 
 {$R *.res}
 

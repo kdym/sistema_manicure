@@ -41,7 +41,6 @@ begin
   Error := false;
 
   EStockWarning.Visible := false;
-  EEndWarning.Visible := false;
 
   if Trim(EdStockWarning.Text) = '' then
   begin
@@ -59,28 +58,10 @@ begin
     end;
   end;
 
-  if Trim(EdEndWarning.Text) = '' then
-  begin
-    EEndWarning.Caption := 'Campo Obrigatório';
-    EEndWarning.Visible := true;
-    Error := true;
-  end
-  else
-  begin
-    if not UValidator.IsNumber(EdEndWarning.Text) then
-    begin
-      EEndWarning.Caption := 'Número inválido';
-      EEndWarning.Visible := true;
-      Error := true;
-    end;
-  end;
-
   if not Error then
   begin
     UParametersHelper.SetParameter(UParametersHelper.StockWarning,
       EdStockWarning.Text);
-    UParametersHelper.SetParameter(UParametersHelper.EndWarning,
-      EdEndWarning.Text);
 
     Close;
   end;
@@ -107,15 +88,16 @@ begin
     EdStockWarning.Text := StockWarning;
   end;
 
-  EndWarning := UParametersHelper.GetParameter(UParametersHelper.EndWarning);
+  EndWarning := UParametersHelper.GetParameter
+    (UParametersHelper.StockWarning);
 
-  if EndWarning = '' then
+  if StockWarning = '' then
   begin
-    EdEndWarning.Text := IntToStr(UParametersHelper.DefaultEndWarning);
+    EdStockWarning.Text := IntToStr(UParametersHelper.DefaultStockWarning);
   end
   else
   begin
-    EdEndWarning.Text := EndWarning;
+    EdStockWarning.Text := StockWarning;
   end;
 end;
 

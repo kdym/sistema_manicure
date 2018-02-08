@@ -109,29 +109,6 @@ object FrmProducts: TFrmProducts
     ParentFont = False
     Visible = False
   end
-  object Label5: TLabel
-    Left = 393
-    Top = 106
-    Width = 55
-    Height = 13
-    Caption = 'Vencimento'
-  end
-  object EVencimento: TLabel
-    Left = 485
-    Top = 106
-    Width = 188
-    Height = 13
-    Alignment = taRightJustify
-    AutoSize = False
-    Caption = 'EDescricao'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clRed
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    Visible = False
-  end
   object BtNew: TBitBtn
     Left = 8
     Top = 8
@@ -484,12 +461,6 @@ object FrmProducts: TFrmProducts
         FieldName = 'codigo_barras'
         Width = 127
         Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'vencimento'
-        Width = 115
-        Visible = True
       end>
   end
   object EdDescricao: TDBEdit
@@ -536,17 +507,6 @@ object FrmProducts: TFrmProducts
     Height = 21
     Enabled = False
     TabOrder = 9
-  end
-  object EdVencimento: TJvDBDateEdit
-    Left = 393
-    Top = 125
-    Width = 279
-    Height = 21
-    DataField = 'vencimento'
-    DataSource = DsProducts
-    Enabled = False
-    ShowNullDate = False
-    TabOrder = 11
   end
   object DsProducts: TDataSource
     DataSet = QryProducts
@@ -598,11 +558,6 @@ object FrmProducts: TFrmProducts
       currency = True
       Precision = 10
       Size = 2
-    end
-    object QryProductsvencimento: TDateField
-      DisplayLabel = 'Vencimento'
-      FieldName = 'vencimento'
-      Origin = 'vencimento'
     end
   end
 end

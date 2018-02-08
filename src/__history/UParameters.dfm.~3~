@@ -3,7 +3,7 @@ object FrmParameters: TFrmParameters
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Configura'#231#245'es'
-  ClientHeight = 135
+  ClientHeight = 84
   ClientWidth = 289
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -20,37 +20,14 @@ object FrmParameters: TFrmParameters
   object Label1: TLabel
     Left = 8
     Top = 8
-    Width = 137
+    Width = 83
     Height = 13
-    Caption = 'Aviso de Estoque (unidades)'
+    Caption = 'Aviso de Estoque'
   end
   object EStockWarning: TLabel
-    Left = 151
+    Left = 112
     Top = 8
-    Width = 130
-    Height = 13
-    Alignment = taRightJustify
-    AutoSize = False
-    Caption = 'EStockWarning'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clRed
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    Visible = False
-  end
-  object Label2: TLabel
-    Left = 8
-    Top = 56
-    Width = 129
-    Height = 13
-    Caption = 'Aviso de Vencimento (dias)'
-  end
-  object EEndWarning: TLabel
-    Left = 143
-    Top = 56
-    Width = 138
+    Width = 169
     Height = 13
     Alignment = taRightJustify
     AutoSize = False
@@ -72,7 +49,7 @@ object FrmParameters: TFrmParameters
   end
   object BtSave: TBitBtn
     Left = 8
-    Top = 102
+    Top = 54
     Width = 273
     Height = 25
     Caption = 'Salvar'
@@ -130,12 +107,5 @@ object FrmParameters: TFrmParameters
     NumGlyphs = 2
     TabOrder = 1
     OnClick = BtSaveClick
-  end
-  object EdEndWarning: TEdit
-    Left = 8
-    Top = 75
-    Width = 273
-    Height = 21
-    TabOrder = 2
   end
 end

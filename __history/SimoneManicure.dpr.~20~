@@ -10,8 +10,7 @@ uses
   UParameters in 'src\UParameters.pas' {FrmParameters},
   UParametersHelper in 'src\UParametersHelper.pas',
   UStockWarning in 'src\UStockWarning.pas' {FrmStockWarning},
-  UEndWarning in 'src\UEndWarning.pas' {FrmEndWarning},
-  UExpireds in 'src\UExpireds.pas' {FrmExpireds};
+  UEndWarning in 'src\UEndWarning.pas' {FrmEndWarning};
 
 {$R *.res}
 

@@ -9296,7 +9296,7 @@ object FrmMain: TFrmMain
       454E44AE426082}
     Stretch = True
     Visible = False
-    OnDblClick = ImgWarningExpiredDblClick
+    OnDblClick = ImgWarningStockDblClick
   end
   object MainMenu1: TMainMenu
     Left = 264

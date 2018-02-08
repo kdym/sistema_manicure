@@ -121,17 +121,17 @@ begin
 
       if FieldByName('vencimento').Value <> Null then
       begin
-        if FieldByName('vencimento').AsDateTime < Now then
+        DaysEnd := DaysBetween(FieldByName('vencimento').AsDateTime, Now);
+
+        if DaysEnd <= StrToInt(EndWarning) then
         begin
-          Inc(TotalExpired);
+          Inc(TotalEndWarning);
         end
         else
         begin
-          DaysEnd := DaysBetween(FieldByName('vencimento').AsDateTime, Now);
-
-          if DaysEnd <= StrToInt(EndWarning) then
+          if FieldByName('vencimento').AsDateTime < Now then
           begin
-            Inc(TotalEndWarning);
+            Inc(TotalExpired);
           end;
         end;
       end;

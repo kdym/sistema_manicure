@@ -17,8 +17,8 @@
     <Transaction>2018/02/05 09:19:26.000.853,=E:\ProjetosNoob\sistema_manicure\Unit1.pas</Transaction>
     <Transaction>2018/02/05 09:19:41.000.424,E:\ProjetosNoob\sistema_manicure\Unit1.pas=E:\ProjetosNoob\sistema_manicure\src\UValidator.pas</Transaction>
     <Transaction>2018/02/05 10:43:02.000.790,=E:\ProjetosNoob\sistema_manicure\Unit1.pas</Transaction>
-    <Transaction>2018/02/05 10:43:08.000.440,E:\ProjetosNoob\sistema_manicure\Unit1.pas=E:\ProjetosNoob\sistema_manicure\src\UStock.pas</Transaction>
     <Transaction>2018/02/05 10:43:08.000.440,E:\ProjetosNoob\sistema_manicure\Unit1.dfm=E:\ProjetosNoob\sistema_manicure\src\UStock.dfm</Transaction>
+    <Transaction>2018/02/05 10:43:08.000.440,E:\ProjetosNoob\sistema_manicure\Unit1.pas=E:\ProjetosNoob\sistema_manicure\src\UStock.pas</Transaction>
     <Transaction>2018/02/08 10:12:41.374,=E:\ProjetosNoob\sistema_manicure\Unit1.pas</Transaction>
     <Transaction>2018/02/08 10:12:48.810,E:\ProjetosNoob\sistema_manicure\src\UParameters.dfm=E:\ProjetosNoob\sistema_manicure\Unit1.dfm</Transaction>
     <Transaction>2018/02/08 10:12:48.810,E:\ProjetosNoob\sistema_manicure\src\UParameters.pas=E:\ProjetosNoob\sistema_manicure\Unit1.pas</Transaction>
@@ -27,5 +27,11 @@
     <Transaction>2018/02/08 10:42:24.541,=E:\ProjetosNoob\sistema_manicure\Unit1.pas</Transaction>
     <Transaction>2018/02/08 10:42:35.470,E:\ProjetosNoob\sistema_manicure\src\UStockWarning.dfm=E:\ProjetosNoob\sistema_manicure\Unit1.dfm</Transaction>
     <Transaction>2018/02/08 10:42:35.470,E:\ProjetosNoob\sistema_manicure\src\UStockWarning.pas=E:\ProjetosNoob\sistema_manicure\Unit1.pas</Transaction>
+    <Transaction>2018/02/08 15:04:29.664,=E:\ProjetosNoob\sistema_manicure\Unit1.pas</Transaction>
+    <Transaction>2018/02/08 15:04:36.102,E:\ProjetosNoob\sistema_manicure\src\UEndWarning.dfm=E:\ProjetosNoob\sistema_manicure\Unit1.dfm</Transaction>
+    <Transaction>2018/02/08 15:04:36.102,E:\ProjetosNoob\sistema_manicure\src\UEndWarning.pas=E:\ProjetosNoob\sistema_manicure\Unit1.pas</Transaction>
+    <Transaction>2018/02/08 15:37:09.878,=E:\ProjetosNoob\sistema_manicure\Unit1.pas</Transaction>
+    <Transaction>2018/02/08 15:37:19.584,E:\ProjetosNoob\sistema_manicure\src\UExpireds.dfm=E:\ProjetosNoob\sistema_manicure\Unit1.dfm</Transaction>
+    <Transaction>2018/02/08 15:37:19.584,E:\ProjetosNoob\sistema_manicure\src\UExpireds.pas=E:\ProjetosNoob\sistema_manicure\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>
