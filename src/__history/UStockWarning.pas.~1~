@@ -1,4 +1,4 @@
-unit UMain;
+unit UStockWarning;
 
 interface
 

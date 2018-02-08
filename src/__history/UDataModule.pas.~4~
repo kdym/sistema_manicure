@@ -20,9 +20,6 @@ type
     TbProductsquantidade: TIntegerField;
     TbProductscodigo_barras: TStringField;
     TbProductsvalor: TBCDField;
-    TbParameters: TFDTable;
-    TbParametersnome: TStringField;
-    TbParametersvalor: TStringField;
   private
     { Private declarations }
   public

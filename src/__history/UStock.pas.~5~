@@ -46,7 +46,7 @@ implementation
 
 {$R *.dfm}
 
-uses UDataModule, UStockWarning, UMain;
+uses UDataModule;
 
 procedure TFrmStock.BtSaveClick(Sender: TObject);
 begin
@@ -64,13 +64,6 @@ begin
 
     Post;
   end;
-
-  if FrmStockWarning <> nil then
-  begin
-    FrmStockWarning.QryStockWarning.Refresh;
-  end;
-
-  FrmMain.FindWarnings;
 end;
 
 procedure TFrmStock.BtSearchClick(Sender: TObject);

@@ -8,8 +8,7 @@ uses
   UValidator in 'src\UValidator.pas',
   UStock in 'src\UStock.pas' {FrmStock},
   UParameters in 'src\UParameters.pas' {FrmParameters},
-  UParametersHelper in 'src\UParametersHelper.pas',
-  UStockWarning in 'src\UStockWarning.pas' {FrmStockWarning};
+  UParametersHelper in 'src\UParametersHelper.pas';
 
 {$R *.res}
 

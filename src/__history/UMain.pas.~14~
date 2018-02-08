@@ -30,7 +30,6 @@ type
     procedure Estoque1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Configuraes1Click(Sender: TObject);
-    procedure ImgWarningStockDblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -46,8 +45,7 @@ implementation
 
 {$R *.dfm}
 
-uses UProducts, UStock, UDataModule, UParameters, UParametersHelper,
-  UStockWarning;
+uses UProducts, UStock, UDataModule, UParameters, UParametersHelper;
 
 procedure TFrmMain.CalculateTotals;
 begin
@@ -128,15 +126,6 @@ procedure TFrmMain.FormCreate(Sender: TObject);
 begin
   CalculateTotals;
   FindWarnings;
-end;
-
-procedure TFrmMain.ImgWarningStockDblClick(Sender: TObject);
-begin
-  if FrmStockWarning = nil then
-  begin
-    FrmStockWarning := TFrmStockWarning.Create(self);
-    FrmStockWarning.ShowModal;
-  end;
 end;
 
 procedure TFrmMain.Produtos1Click(Sender: TObject);

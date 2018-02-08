@@ -532,6 +532,7 @@ object FrmProducts: TFrmProducts
       FieldName = 'id'
       Origin = 'id'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object QryProductsdescricao: TStringField
       DisplayLabel = 'Descri'#231#227'o'

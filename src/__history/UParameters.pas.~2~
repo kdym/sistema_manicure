@@ -1,0 +1,35 @@
+unit UParameters;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons;
+
+type
+  TFrmParameters = class(TForm)
+    Label1: TLabel;
+    EdStockWarning: TEdit;
+    EStockWarning: TLabel;
+    BtSave: TBitBtn;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmParameters: TFrmParameters;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrmParameters.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  FrmParameters := nil;
+end;
+
+end.

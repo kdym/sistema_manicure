@@ -1027,13 +1027,13 @@ object FrmMain: TFrmMain
     ParentFont = False
   end
   object LbWarningEnd: TLabel
-    Left = 304
-    Top = 17
-    Width = 348
-    Height = 15
+    Left = 346
+    Top = 9
+    Width = 306
+    Height = 30
     Alignment = taRightJustify
     AutoSize = False
-    Caption = 'Voc'#234' possui 99.999 produtos pr'#243'ximos do vencimento'
+    Caption = 'Voc'#234' possui 99.999 produtos que est'#227'o pr'#243'ximos do vencimento'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 4693467
     Font.Height = -12
@@ -1733,10 +1733,10 @@ object FrmMain: TFrmMain
     Visible = False
   end
   object LbWarningStock: TLabel
-    Left = 320
-    Top = 50
-    Width = 332
-    Height = 20
+    Left = 346
+    Top = 45
+    Width = 306
+    Height = 30
     Alignment = taRightJustify
     AutoSize = False
     Caption = 'Voc'#234' possui 99.999 produtos acabando no estoque'
@@ -2437,7 +2437,6 @@ object FrmMain: TFrmMain
       AE426082}
     Stretch = True
     Visible = False
-    OnDblClick = ImgWarningStockDblClick
   end
   object Image4: TImage
     Left = 8

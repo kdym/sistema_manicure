@@ -30,7 +30,6 @@ type
     procedure Estoque1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Configuraes1Click(Sender: TObject);
-    procedure ImgWarningStockDblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -46,8 +45,7 @@ implementation
 
 {$R *.dfm}
 
-uses UProducts, UStock, UDataModule, UParameters, UParametersHelper,
-  UStockWarning;
+uses UProducts, UStock, UDataModule, UParameters, UParametersHelper;
 
 procedure TFrmMain.CalculateTotals;
 begin
@@ -75,7 +73,7 @@ end;
 
 procedure TFrmMain.FindWarnings;
 var
-  StockWarning, Buffer: string;
+  StockWarning: string;
   TotalStockWarning: integer;
 begin
   StockWarning := UParametersHelper.GetParameter
@@ -108,17 +106,8 @@ begin
 
   if TotalStockWarning > 0 then
   begin
-    if TotalStockWarning = 1 then
-    begin
-      Buffer := 'produto';
-    end
-    else
-    begin
-      Buffer := 'produtos';
-    end;
-
-    LbWarningStock.Caption := Format('Você possui %s %s acabando no estoque',
-      [FormatFloat('#,##0', TotalStockWarning), Buffer]);
+    LbWarningStock.Caption := 'Você possui ' + FormatFloat('#,##0',
+      TotalStockWarning) + ' produtos que estão próximos do vencimento';
     LbWarningStock.Visible := true;
     ImgWarningStock.Visible := true;
   end;
@@ -127,16 +116,6 @@ end;
 procedure TFrmMain.FormCreate(Sender: TObject);
 begin
   CalculateTotals;
-  FindWarnings;
-end;
-
-procedure TFrmMain.ImgWarningStockDblClick(Sender: TObject);
-begin
-  if FrmStockWarning = nil then
-  begin
-    FrmStockWarning := TFrmStockWarning.Create(self);
-    FrmStockWarning.ShowModal;
-  end;
 end;
 
 procedure TFrmMain.Produtos1Click(Sender: TObject);

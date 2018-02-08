@@ -2437,7 +2437,6 @@ object FrmMain: TFrmMain
       AE426082}
     Stretch = True
     Visible = False
-    OnDblClick = ImgWarningStockDblClick
   end
   object Image4: TImage
     Left = 8

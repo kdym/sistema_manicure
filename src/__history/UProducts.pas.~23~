@@ -68,7 +68,7 @@ implementation
 
 {$R *.dfm}
 
-uses UDataModule, UValidator, UMain;
+uses UDataModule, UValidator;
 
 { TFrmProducts }
 
@@ -194,8 +194,6 @@ begin
     DisableFields;
     EnableButtons;
     ClearFields;
-
-    FrmMain.CalculateTotals;
   end;
 end;
 

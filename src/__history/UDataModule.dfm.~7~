@@ -24,7 +24,6 @@ object DmManicure: TDmManicure
       FieldName = 'id'
       Origin = 'id'
       ProviderFlags = [pfInWhere, pfInKey]
-      ReadOnly = True
     end
     object TbProductsdescricao: TStringField
       DisplayLabel = 'Descri'#231#227'o'
@@ -56,25 +55,5 @@ object DmManicure: TDmManicure
     Provider = 'Forms'
     Left = 144
     Top = 16
-  end
-  object TbParameters: TFDTable
-    Active = True
-    IndexFieldNames = 'nome'
-    Connection = Connection
-    UpdateOptions.UpdateTableName = 'parameters'
-    TableName = 'parameters'
-    Left = 112
-    Top = 96
-    object TbParametersnome: TStringField
-      FieldName = 'nome'
-      Origin = 'nome'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Size = 32767
-    end
-    object TbParametersvalor: TStringField
-      FieldName = 'valor'
-      Origin = 'valor'
-      Size = 32767
-    end
   end
 end

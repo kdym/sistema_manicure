@@ -4,15 +4,16 @@ uses
   Vcl.Forms,
   UMain in 'src\UMain.pas' {FrmMain},
   UProducts in 'src\UProducts.pas' {FrmProducts},
-  UDataModule in 'src\UDataModule.pas' {DataModule1: TDataModule};
+  UDataModule in 'src\UDataModule.pas' {DmManicure: TDataModule},
+  UValidator in 'src\UValidator.pas',
+  UStock in 'src\UStock.pas' {FrmStock};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TDmManicure, DmManicure);
   Application.CreateForm(TFrmMain, FrmMain);
-  Application.CreateForm(TFrmProducts, FrmProducts);
-  Application.CreateForm(TDataModule1, DataModule1);
   Application.Run;
 end.
