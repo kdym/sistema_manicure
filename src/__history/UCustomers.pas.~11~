@@ -1,0 +1,257 @@
+unit UCustomers;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB,
+  FireDAC.Comp.DataSet, JvExMask, JvToolEdit, JvMaskEdit, JvDBControls,
+  Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls, FireDAC.Comp.Client, Vcl.Buttons,
+  Vcl.Grids, Vcl.DBGrids;
+
+type
+  TFrmCustomers = class(TForm)
+    BtDelete: TBitBtn;
+    BtCancel: TBitBtn;
+    BtSave: TBitBtn;
+    BtEdit: TBitBtn;
+    BtNew: TBitBtn;
+    QryCustomers: TFDQuery;
+    DsCustomers: TDataSource;
+    Label1: TLabel;
+    EdNome: TDBEdit;
+    EdCpf: TJvDBMaskEdit;
+    Label2: TLabel;
+    Label3: TLabel;
+    EdCep: TJvDBMaskEdit;
+    ENome: TLabel;
+    ECpf: TLabel;
+    Label5: TLabel;
+    EdEndereco: TDBEdit;
+    Label4: TLabel;
+    EdNumero: TDBEdit;
+    Label6: TLabel;
+    EdComplemento: TDBEdit;
+    QryCustomersid: TFDAutoIncField;
+    QryCustomersnome: TStringField;
+    QryCustomerscpf: TStringField;
+    QryCustomersendereco: TStringField;
+    QryCustomersnumero: TStringField;
+    QryCustomerscomplemento: TStringField;
+    QryCustomerscidade: TStringField;
+    QryCustomersuf: TStringField;
+    QryCustomerscep: TStringField;
+    QryCustomerstelefone_1: TStringField;
+    QryCustomerstelefone_2: TStringField;
+    QryCustomerstelefone_3: TStringField;
+    QryCustomersbairro: TStringField;
+    Label7: TLabel;
+    EdBairro: TDBEdit;
+    Label8: TLabel;
+    EdCidade: TDBEdit;
+    Label9: TLabel;
+    EdUf: TDBEdit;
+    Label10: TLabel;
+    ETelefone1: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
+    DBGrid1: TDBGrid;
+    EdSearch: TEdit;
+    ECep: TLabel;
+    EdTelefone1: TJvDBMaskEdit;
+    EdTelefone2: TJvDBMaskEdit;
+    ETelefone2: TLabel;
+    EdTelefone3: TJvDBMaskEdit;
+    ETelefone3: TLabel;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure BtNewClick(Sender: TObject);
+    procedure BtCancelClick(Sender: TObject);
+    procedure BtSaveClick(Sender: TObject);
+  private
+    { Private declarations }
+    procedure DisableButtons;
+    procedure EnableButtons;
+    procedure EnableFields;
+    procedure DisableFields;
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmCustomers: TFrmCustomers;
+
+implementation
+
+{$R *.dfm}
+
+uses UDataModule, UValidator;
+
+procedure TFrmCustomers.BtCancelClick(Sender: TObject);
+begin
+  DisableFields;
+  EnableButtons;
+
+  DsCustomers.DataSet.Cancel;
+end;
+
+procedure TFrmCustomers.BtNewClick(Sender: TObject);
+begin
+  EnableFields;
+  DisableButtons;
+
+  EdNome.SetFocus;
+
+  DsCustomers.DataSet.Append;
+end;
+
+procedure TFrmCustomers.BtSaveClick(Sender: TObject);
+var
+  Error: boolean;
+begin
+  Error := false;
+
+  ENome.Visible := false;
+  ECpf.Visible := false;
+  ECep.Visible := false;
+  ETelefone1.Visible := false;
+  ETelefone2.Visible := false;
+  ETelefone3.Visible := false;
+
+  if Trim(EdNome.Text) = '' then
+  begin
+    ENome.Caption := 'Campo Obrigatório';
+    ENome.Visible := true;
+    Error := true;
+  end;
+
+  if Trim(EdCpf.EditText) = '' then
+  begin
+    ECpf.Caption := 'Campo Obrigatório';
+    ECpf.Visible := true;
+    Error := true;
+  end
+  else
+  begin
+    if not UValidator.IsValidCpf(EdCpf.EditText) then
+    begin
+      ECpf.Caption := 'CPF Inválido';
+      ECpf.Visible := true;
+      Error := true;
+    end;
+  end;
+
+  if Trim(EdCep.EditText) <> '' then
+  begin
+    if not UValidator.IsValidCep(EdCep.EditText) then
+    begin
+      ECep.Caption := 'CEP Inválido';
+      ECep.Visible := true;
+      Error := true;
+    end;
+  end;
+
+  if Trim(EdTelefone1.EditText) = '' then
+  begin
+    ETelefone1.Caption := 'Campo Obrigatório';
+    ETelefone1.Visible := true;
+    Error := true;
+  end
+  else
+  begin
+    if not UValidator.IsValidPhone(EdTelefone1.EditText) then
+    begin
+      ETelefone1.Caption := 'Telefone Inválido';
+      ETelefone1.Visible := true;
+      Error := true;
+    end;
+  end;
+
+  if Trim(EdTelefone2.EditText) <> '' then
+  begin
+    if not UValidator.IsValidPhone(EdTelefone2.EditText) then
+    begin
+      ETelefone2.Caption := 'Telefone Inválido';
+      ETelefone2.Visible := true;
+      Error := true;
+    end;
+  end;
+
+  if Trim(EdTelefone3.EditText) <> '' then
+  begin
+    if not UValidator.IsValidPhone(EdTelefone3.EditText) then
+    begin
+      ETelefone3.Caption := 'Telefone Inválido';
+      ETelefone3.Visible := true;
+      Error := true;
+    end;
+  end;
+
+  if not Error then
+  begin
+
+  end;
+end;
+
+procedure TFrmCustomers.DisableButtons;
+begin
+  BtNew.Enabled := false;
+  BtEdit.Enabled := false;
+  BtSave.Enabled := true;
+  BtCancel.Enabled := true;
+  BtDelete.Enabled := false;
+end;
+
+procedure TFrmCustomers.DisableFields;
+begin
+  EdNome.Enabled := false;
+  EdCpf.Enabled := false;
+  EdCep.Enabled := false;
+  EdEndereco.Enabled := false;
+  EdNumero.Enabled := false;
+  EdComplemento.Enabled := false;
+  EdBairro.Enabled := false;
+  EdCidade.Enabled := false;
+  EdUf.Enabled := false;
+  EdTelefone1.Enabled := false;
+  EdTelefone2.Enabled := false;
+  EdTelefone3.Enabled := false;
+
+  EdSearch.Enabled := true;
+end;
+
+procedure TFrmCustomers.EnableButtons;
+begin
+  BtNew.Enabled := true;
+  BtEdit.Enabled := true;
+  BtSave.Enabled := false;
+  BtCancel.Enabled := false;
+  BtDelete.Enabled := true;
+end;
+
+procedure TFrmCustomers.EnableFields;
+begin
+  EdNome.Enabled := true;
+  EdCpf.Enabled := true;
+  EdCep.Enabled := true;
+  EdEndereco.Enabled := true;
+  EdNumero.Enabled := true;
+  EdComplemento.Enabled := true;
+  EdBairro.Enabled := true;
+  EdCidade.Enabled := true;
+  EdUf.Enabled := true;
+  EdTelefone1.Enabled := true;
+  EdTelefone2.Enabled := true;
+  EdTelefone3.Enabled := true;
+
+  EdSearch.Enabled := false;
+end;
+
+procedure TFrmCustomers.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  FrmCustomers := nil;
+end;
+
+end.

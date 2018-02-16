@@ -1,5 +1,0 @@
-object DmManicure: TDmManicure
-  OldCreateOrder = False
-  Height = 335
-  Width = 434
-end

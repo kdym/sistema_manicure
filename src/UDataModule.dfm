@@ -4,8 +4,8 @@ object DmManicure: TDmManicure
   Width = 434
   object Connection: TFDConnection
     Params.Strings = (
-      'Database=E:\ProjetosNoob\sistema_manicure\manicure.db'
       'LockingMode=Normal'
+      'Database=E:\ProjetosNoob\sistema_manicure\manicure.db'
       'DriverID=SQLite')
     Connected = True
     LoginPrompt = False
@@ -80,5 +80,14 @@ object DmManicure: TDmManicure
       Origin = 'valor'
       Size = 32767
     end
+  end
+  object TbCustomers: TFDTable
+    Active = True
+    IndexFieldNames = 'id'
+    Connection = Connection
+    UpdateOptions.UpdateTableName = 'customers'
+    TableName = 'customers'
+    Left = 192
+    Top = 96
   end
 end

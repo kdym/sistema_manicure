@@ -93,6 +93,8 @@ begin
       [mbOK, mbCancel], 0) = mrOk then
     begin
       DsProducts.DataSet.Delete;
+
+      FrmMain.CalculateTotals;
     end;
   end;
 end;

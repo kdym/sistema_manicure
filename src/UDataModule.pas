@@ -24,6 +24,7 @@ type
     TbParametersnome: TStringField;
     TbParametersvalor: TStringField;
     TbProductsvencimento: TDateField;
+    TbCustomers: TFDTable;
   private
     { Private declarations }
   public

@@ -4,7 +4,7 @@ object FrmMain: TFrmMain
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Simone Manicure'
-  ClientHeight = 413
+  ClientHeight = 376
   ClientWidth = 691
   Color = 6567257
   Font.Charset = DEFAULT_CHARSET
@@ -1013,7 +1013,7 @@ object FrmMain: TFrmMain
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object Label2: TLabel
+  object LbCustomersCount: TLabel
     Left = 79
     Top = 30
     Width = 138
@@ -2879,7 +2879,7 @@ object FrmMain: TFrmMain
   end
   object Image5: TImage
     Left = 8
-    Top = 344
+    Top = 304
     Width = 98
     Height = 61
     Picture.Data = {
@@ -5339,7 +5339,7 @@ object FrmMain: TFrmMain
   end
   object Image6: TImage
     Left = 576
-    Top = 344
+    Top = 304
     Width = 107
     Height = 61
     Picture.Data = {
@@ -9301,6 +9301,10 @@ object FrmMain: TFrmMain
   object MainMenu1: TMainMenu
     Left = 264
     Top = 16
+    object Clientes1: TMenuItem
+      Caption = 'Clientes'
+      OnClick = Clientes1Click
+    end
     object Produtos1: TMenuItem
       Caption = 'Produtos'
       OnClick = Produtos1Click
@@ -9312,6 +9316,36 @@ object FrmMain: TFrmMain
     object Configuraes1: TMenuItem
       Caption = 'Configura'#231#245'es'
       OnClick = Configuraes1Click
+    end
+  end
+  object QryCustomersCount: TFDQuery
+    Active = True
+    Connection = DmManicure.Connection
+    SQL.Strings = (
+      'select count(*) count from customers')
+    Left = 152
+    Top = 320
+    object QryCustomersCountcount: TLargeintField
+      AutoGenerateValue = arDefault
+      FieldName = 'count'
+      Origin = 'count'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+  end
+  object QryProductsCount: TFDQuery
+    Active = True
+    Connection = DmManicure.Connection
+    SQL.Strings = (
+      'select count(*) count from products')
+    Left = 152
+    Top = 264
+    object QryProductsCountcount: TLargeintField
+      AutoGenerateValue = arDefault
+      FieldName = 'count'
+      Origin = 'count'
+      ProviderFlags = []
+      ReadOnly = True
     end
   end
 end

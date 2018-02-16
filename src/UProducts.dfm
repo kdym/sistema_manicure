@@ -555,6 +555,7 @@ object FrmProducts: TFrmProducts
   end
   object QryProducts: TFDQuery
     Active = True
+    Filtered = True
     Connection = DmManicure.Connection
     SQL.Strings = (
       'select * from products where descricao like :search'

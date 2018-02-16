@@ -11,7 +11,8 @@ uses
   UParametersHelper in 'src\UParametersHelper.pas',
   UStockWarning in 'src\UStockWarning.pas' {FrmStockWarning},
   UEndWarning in 'src\UEndWarning.pas' {FrmEndWarning},
-  UExpireds in 'src\UExpireds.pas' {FrmExpireds};
+  UExpireds in 'src\UExpireds.pas' {FrmExpireds},
+  UCustomers in 'src\UCustomers.pas' {FrmCustomers};
 
 {$R *.res}
 

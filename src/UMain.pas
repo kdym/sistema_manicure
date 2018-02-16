@@ -6,7 +6,10 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.Imaging.jpeg,
-  Vcl.ExtCtrls, Vcl.Imaging.pngimage, Vcl.StdCtrls;
+  Vcl.ExtCtrls, Vcl.Imaging.pngimage, Vcl.StdCtrls, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TFrmMain = class(TForm)
@@ -15,7 +18,7 @@ type
     Estoque1: TMenuItem;
     Image1: TImage;
     Label1: TLabel;
-    Label2: TLabel;
+    LbCustomersCount: TLabel;
     LbWarningEnd: TLabel;
     ImgWarningEnd: TImage;
     LbWarningStock: TLabel;
@@ -28,6 +31,11 @@ type
     Configuraes1: TMenuItem;
     LbWarningExpired: TLabel;
     ImgWarningExpired: TImage;
+    Clientes1: TMenuItem;
+    QryCustomersCount: TFDQuery;
+    QryCustomersCountcount: TLargeintField;
+    QryProductsCount: TFDQuery;
+    QryProductsCountcount: TLargeintField;
     procedure Produtos1Click(Sender: TObject);
     procedure Estoque1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -35,6 +43,7 @@ type
     procedure ImgWarningStockDblClick(Sender: TObject);
     procedure ImgWarningEndDblClick(Sender: TObject);
     procedure ImgWarningExpiredDblClick(Sender: TObject);
+    procedure Clientes1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -51,12 +60,26 @@ implementation
 {$R *.dfm}
 
 uses UProducts, UStock, UDataModule, UParameters, UParametersHelper,
-  UStockWarning, DateUtils, UEndWarning, UExpireds;
+  UStockWarning, DateUtils, UEndWarning, UExpireds, UCustomers;
 
 procedure TFrmMain.CalculateTotals;
 begin
+  QryCustomersCount.Refresh;
+  QryProductsCount.Refresh;
+
   LbProductsCount.Caption := FormatFloat('#,##0',
-    DmManicure.TbProducts.RecordCount);
+    QryProductsCountcount.AsInteger);
+  LbCustomersCount.Caption := FormatFloat('#,##0',
+    QryCustomersCountcount.AsInteger);
+end;
+
+procedure TFrmMain.Clientes1Click(Sender: TObject);
+begin
+  if FrmCustomers = nil then
+  begin
+    FrmCustomers := TFrmCustomers.Create(self);
+    FrmCustomers.ShowModal;
+  end;
 end;
 
 procedure TFrmMain.Configuraes1Click(Sender: TObject);
@@ -194,6 +217,22 @@ end;
 
 procedure TFrmMain.FormCreate(Sender: TObject);
 begin
+  with DmManicure.Connection do
+  begin
+    Params.Clear;
+    Params.Add('DriverID=SQLite');
+    Params.Add('LockingMode=lmNormal');
+    Params.Add('Database=' + ExtractFilePath(ParamStr(0)) + 'manicure.db');
+
+    Connected := true;
+  end;
+
+  DmManicure.TbParameters.Active := true;
+  DmManicure.TbProducts.Active := true;
+
+  QryCustomersCount.Active := true;
+  QryProductsCount.Active := true;
+
   CalculateTotals;
   FindWarnings;
 end;
