@@ -12,7 +12,10 @@ uses
   UStockWarning in 'src\UStockWarning.pas' {FrmStockWarning},
   UEndWarning in 'src\UEndWarning.pas' {FrmEndWarning},
   UExpireds in 'src\UExpireds.pas' {FrmExpireds},
-  UCustomers in 'src\UCustomers.pas' {FrmCustomers};
+  UCustomers in 'src\UCustomers.pas' {FrmCustomers},
+  USales in 'src\USales.pas' {FrmSales},
+  UNewSale in 'src\UNewSale.pas' {FrmNewSale},
+  UPaymentMethod in 'src\UPaymentMethod.pas';
 
 {$R *.res}
 

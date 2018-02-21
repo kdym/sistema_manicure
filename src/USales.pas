@@ -1,0 +1,66 @@
+unit USales;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  Vcl.Mask, JvExMask, JvToolEdit, Vcl.StdCtrls, Vcl.Buttons;
+
+type
+  TFrmSales = class(TForm)
+    BtNew: TBitBtn;
+    BtEdit: TBitBtn;
+    BtDelete: TBitBtn;
+    Label1: TLabel;
+    Edit1: TEdit;
+    Label2: TLabel;
+    JvDateEdit1: TJvDateEdit;
+    JvDateEdit2: TJvDateEdit;
+    DBGrid1: TDBGrid;
+    BitBtn1: TBitBtn;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure BtNewClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmSales: TFrmSales;
+
+implementation
+
+{$R *.dfm}
+
+uses UNewSale, UDataModule;
+
+procedure TFrmSales.BtNewClick(Sender: TObject);
+begin
+  if FrmNewSale = nil then
+  begin
+    FrmNewSale := TFrmNewSale.Create(self);
+
+    with DmManicure.TbSales do
+    begin
+      Append;
+      FieldByName('created').Value := Now;
+      FieldByName('draft').Value := true;
+      Post;
+
+      FrmNewSale.LbSaleId.Caption :=
+        Format('%.*d', [6, FieldByName('id').AsInteger]);
+    end;
+
+    FrmNewSale.ShowModal;
+  end;
+end;
+
+procedure TFrmSales.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  FrmSales := nil;
+end;
+
+end.

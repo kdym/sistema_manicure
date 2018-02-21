@@ -6,11 +6,13 @@ function IsNumber(S: string): Boolean;
 function IsValidCpf(CPF: String): Boolean;
 function IsValidCep(CEP: String): Boolean;
 function IsValidPhone(Phone: String): Boolean;
+function UnmaskNumber(Number: String): String;
+function ParseNumber(Number: String): Double;
 
 implementation
 
 uses
-  System.RegularExpressions;
+  System.RegularExpressions, System.SysUtils;
 
 const
   CPF_REGEX_MASK = '\d{3}\.\d{3}\.\d{3}\-\d{2}';
@@ -47,6 +49,23 @@ function IsValidPhone(Phone: String): Boolean;
 begin
   Result := (TRegEx.Match(Phone, PHONE_DDD_REGEX_MASK).Success) or
     (TRegEx.Match(Phone, PHONE_DDD_9_REGEX_MASK).Success);
+end;
+
+function UnmaskNumber(Number: String): String;
+begin
+  Result := StringReplace(Number, '.', '', [rfReplaceAll]);
+end;
+
+function ParseNumber(Number: String): Double;
+var
+  Buffer: String;
+begin
+  Buffer := StringReplace(Number, '.', '', [rfReplaceAll]);
+  Buffer := StringReplace(Buffer, 'R$ ', '', [rfReplaceAll]);
+  Buffer := StringReplace(Buffer, '-', '', [rfReplaceAll]);
+  // Buffer := StringReplace(Buffer, ',', '.', [rfReplaceAll]);
+
+  Result := StrToFloat(Buffer);
 end;
 
 end.

@@ -1,0 +1,35 @@
+unit UPaymentMethod;
+
+interface
+
+uses
+  System.Generics.Collections;
+
+type
+  TPaymentMethod = class
+  const
+    MONEY = 'Dinheiro';
+    DEBIT_CARD = 'Cartão de Débito';
+    CREDIT_CARD = 'Cartão de Crédito';
+    CHECK = 'Cheque';
+  public
+    function GetMethods: TList<String>;
+  end;
+
+implementation
+
+{ TPaymentMethod }
+
+{ TPaymentMethod }
+
+function TPaymentMethod.GetMethods: TList<String>;
+begin
+  Result := TList<String>.Create;
+
+  Result.Add(MONEY);
+  Result.Add(DEBIT_CARD);
+  Result.Add(CREDIT_CARD);
+  Result.Add(CHECK);
+end;
+
+end.

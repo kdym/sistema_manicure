@@ -1,0 +1,16 @@
+unit UPaymentMethod;
+
+interface
+
+type
+  TPaymentMethod = class
+  const
+    MONEY = 'Dinheiro';
+    DEBIT_CARD = 'Cartão de Débito';
+    CREDIT_CARD = 'Cartão de Crédito';
+    CHECK = 'Cheque';
+  end;
+
+implementation
+
+end.

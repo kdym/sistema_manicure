@@ -1,0 +1,31 @@
+unit USales;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs;
+
+type
+  TFrmSales = class(TForm)
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmSales: TFrmSales;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrmSales.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  FrmSales := nil;
+end;
+
+end.

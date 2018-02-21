@@ -36,6 +36,7 @@ type
     QryCustomersCountcount: TLargeintField;
     QryProductsCount: TFDQuery;
     QryProductsCountcount: TLargeintField;
+    Vendas1: TMenuItem;
     procedure Produtos1Click(Sender: TObject);
     procedure Estoque1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -44,6 +45,7 @@ type
     procedure ImgWarningEndDblClick(Sender: TObject);
     procedure ImgWarningExpiredDblClick(Sender: TObject);
     procedure Clientes1Click(Sender: TObject);
+    procedure Vendas1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -60,7 +62,7 @@ implementation
 {$R *.dfm}
 
 uses UProducts, UStock, UDataModule, UParameters, UParametersHelper,
-  UStockWarning, DateUtils, UEndWarning, UExpireds, UCustomers;
+  UStockWarning, DateUtils, UEndWarning, UExpireds, UCustomers, USales;
 
 procedure TFrmMain.CalculateTotals;
 begin
@@ -229,6 +231,9 @@ begin
 
   DmManicure.TbParameters.Active := true;
   DmManicure.TbProducts.Active := true;
+  DmManicure.TbSales.Active := true;
+  DmManicure.TbSalesProducts.Active := true;
+  DmManicure.TbPaymentMethods.Active := true;
 
   QryCustomersCount.Active := true;
   QryProductsCount.Active := true;
@@ -270,6 +275,15 @@ begin
   begin
     FrmProducts := TFrmProducts.Create(self);
     FrmProducts.ShowModal;
+  end;
+end;
+
+procedure TFrmMain.Vendas1Click(Sender: TObject);
+begin
+  if FrmSales = nil then
+  begin
+    FrmSales := TFrmSales.Create(self);
+    FrmSales.ShowModal;
   end;
 end;
 

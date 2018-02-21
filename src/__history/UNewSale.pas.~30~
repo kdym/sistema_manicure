@@ -1,0 +1,491 @@
+unit UNewSale;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.StdCtrls, Vcl.Buttons,
+  Vcl.Mask, JvExMask, JvSpin, Vcl.Grids, Vcl.DBGrids, JvToolEdit, JvBaseEdits,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+
+type
+  TFrmNewSale = class(TForm)
+    Label1: TLabel;
+    EdSearchCustomer: TEdit;
+    GrdCustomers: TDBGrid;
+    Label2: TLabel;
+    EdSearchBarcode: TEdit;
+    EdSearchProduct: TEdit;
+    GrdProducts: TDBGrid;
+    Label3: TLabel;
+    EdQuantity: TJvSpinEdit;
+    BtAddProduct: TBitBtn;
+    EProducts: TLabel;
+    GrdSales: TDBGrid;
+    BtRemoveProducts: TBitBtn;
+    Label5: TLabel;
+    LbTotal: TLabel;
+    Label7: TLabel;
+    CbPaymentMethods: TComboBox;
+    Label8: TLabel;
+    EdPaymentValue: TJvCalcEdit;
+    Label9: TLabel;
+    EdPlots: TJvSpinEdit;
+    GrdPaymentMethods: TDBGrid;
+    BtAddPaymentMethod: TBitBtn;
+    BtSave: TBitBtn;
+    QrySearchCustomers: TFDQuery;
+    DsCustomers: TDataSource;
+    QrySearchProducts: TFDQuery;
+    DsProducts: TDataSource;
+    QrySearchProductsid: TFDAutoIncField;
+    QrySearchProductsdescricao: TStringField;
+    QrySearchProductsquantidade: TIntegerField;
+    QrySearchProductscodigo_barras: TStringField;
+    QrySearchProductsvalor: TBCDField;
+    QrySearchProductsvencimento: TDateField;
+    Label4: TLabel;
+    LbSaleId: TLabel;
+    QryProductInSale: TFDQuery;
+    QrySales: TFDQuery;
+    DsSales: TDataSource;
+    QrySalesid: TFDAutoIncField;
+    QrySalesvalor: TBCDField;
+    QrySalesquantidade: TIntegerField;
+    QrySalessale_id: TIntegerField;
+    QrySalesproduct_id: TIntegerField;
+    QrySalesid_1: TIntegerField;
+    QrySalesdescricao: TStringField;
+    QrySalesquantidade_1: TIntegerField;
+    QrySalescodigo_barras: TStringField;
+    QrySalesvalor_1: TBCDField;
+    QrySalesvencimento: TDateField;
+    QrySalesvalor_total: TBCDField;
+    EPaymentMethods: TLabel;
+    EPaymentValue: TLabel;
+    EPlots: TLabel;
+    QryPaymentMethods: TFDQuery;
+    DsPaymentMethods: TDataSource;
+    QryPaymentMethodsid: TFDAutoIncField;
+    QryPaymentMethodstipo: TStringField;
+    QryPaymentMethodsvalor: TBCDField;
+    QryPaymentMethodsparcelas: TIntegerField;
+    QryPaymentMethodssale_id: TIntegerField;
+    LbPaymentTotal: TLabel;
+    Label6: TLabel;
+    Label10: TLabel;
+    CbDiscountType: TComboBox;
+    EdDiscount: TJvCalcEdit;
+    Label11: TLabel;
+    LbDiscount: TLabel;
+    Label13: TLabel;
+    LbFinalValue: TLabel;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure EdSearchCustomerKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure EdSearchBarcodeKeyPress(Sender: TObject; var Key: Char);
+    procedure EdSearchBarcodeEnter(Sender: TObject);
+    procedure EdSearchBarcodeExit(Sender: TObject);
+    procedure EdSearchProductKeyPress(Sender: TObject; var Key: Char);
+    procedure GrdProductsCellClick(Column: TColumn);
+    procedure BtAddProductClick(Sender: TObject);
+    procedure QrySalesCalcFields(DataSet: TDataSet);
+    procedure GrdSalesCellClick(Column: TColumn);
+    procedure BtRemoveProductsClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure CbPaymentMethodsChange(Sender: TObject);
+    procedure BtAddPaymentMethodClick(Sender: TObject);
+    procedure EdDiscountKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure BtSaveClick(Sender: TObject);
+  private
+    { Private declarations }
+    procedure UpdateSalesGrid;
+    procedure UpdateTotals;
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmNewSale: TFrmNewSale;
+  SaleTotal: Double;
+
+implementation
+
+{$R *.dfm}
+
+uses UDataModule, UPaymentMethod, UValidator;
+
+procedure TFrmNewSale.BtAddPaymentMethodClick(Sender: TObject);
+var
+  Error: boolean;
+  Sum: Double;
+begin
+  Error := false;
+
+  EPaymentMethods.Visible := false;
+  EPaymentValue.Visible := false;
+  EPlots.Visible := false;
+
+  if CbPaymentMethods.Text = '' then
+  begin
+    EPaymentMethods.Caption := 'Campo Obrigatório';
+    EPaymentMethods.Visible := true;
+    Error := true;
+  end;
+
+  if EdPaymentValue.Text = '' then
+  begin
+    EPaymentValue.Caption := 'Campo Obrigatório';
+    EPaymentValue.Visible := true;
+    Error := true;
+  end;
+
+  if CbPaymentMethods.Text = TPaymentMethod.CREDIT_CARD then
+  begin
+    if StrToInt(UValidator.UnmaskNumber(EdPlots.Text)) <= 0 then
+    begin
+      EPlots.Caption := 'Parcelas inválidas';
+      EPlots.Visible := true;
+      Error := true;
+    end
+  end;
+
+  if not Error then
+  begin
+    with DmManicure.TbPaymentMethods do
+    begin
+      Append;
+
+      FieldByName('tipo').Value := CbPaymentMethods.Text;
+      FieldByName('valor').Value := EdPaymentValue.EditText;
+      FieldByName('parcelas').Value := EdPlots.EditText;
+      FieldByName('sale_id').Value := StrToInt(LbSaleId.Caption);
+
+      Post;
+    end;
+
+    CbPaymentMethods.Text := '';
+    EdPaymentValue.Text := '';
+    EdPlots.Text := '';
+    EdPlots.Enabled := false;
+
+    with QryPaymentMethods do
+    begin
+      Close;
+      ParamByName('sale').Value := StrToInt(LbSaleId.Caption);
+      Open;
+    end;
+
+    UpdateTotals;
+  end;
+end;
+
+procedure TFrmNewSale.BtAddProductClick(Sender: TObject);
+var
+  Error: boolean;
+begin
+  Error := false;
+
+  EProducts.Visible := false;
+
+  if StrToInt(UValidator.UnmaskNumber(EdQuantity.Text)) <= 0 then
+  begin
+    EProducts.Caption := 'Quantidade inválida';
+    EProducts.Visible := true;
+    Error := true;
+  end
+  else
+  begin
+    if StrToInt(UValidator.UnmaskNumber(EdQuantity.Text)) >
+      QrySearchProducts.FieldByName('quantidade').AsInteger then
+    begin
+      EProducts.Caption := 'Sem Produto no Estoque';
+      EProducts.Visible := true;
+      Error := true;
+    end;
+  end;
+
+  if not Error then
+  begin
+    with QryProductInSale do
+    begin
+      Close;
+      ParamByName('product').Value := QrySearchProducts.FieldByName('id')
+        .AsInteger;
+      ParamByName('sale').Value := StrToInt(LbSaleId.Caption);
+      Open;
+
+      if IsEmpty then
+      begin
+        Append;
+
+        FieldByName('valor').Value := QrySearchProducts.FieldByName
+          ('valor').Value;
+        FieldByName('quantidade').Value := StrToInt(EdQuantity.Text);
+        FieldByName('sale_id').Value := StrToInt(LbSaleId.Caption);
+        FieldByName('product_id').Value := QrySearchProducts.FieldByName('id')
+          .AsInteger;
+
+        Post;
+      end
+      else
+      begin
+        Edit;
+
+        FieldByName('quantidade').Value := FieldByName('quantidade').AsInteger +
+          StrToInt(EdQuantity.Text);
+
+        Post;
+      end;
+    end;
+
+    EdQuantity.Text := '0';
+    BtAddProduct.Enabled := false;
+
+    UpdateSalesGrid;
+  end;
+end;
+
+procedure TFrmNewSale.BtRemoveProductsClick(Sender: TObject);
+begin
+  with QrySales do
+  begin
+    Delete;
+
+    UpdateSalesGrid;
+
+    if IsEmpty then
+    begin
+      BtRemoveProducts.Enabled := false;
+    end;
+  end;
+end;
+
+procedure TFrmNewSale.BtSaveClick(Sender: TObject);
+var
+  Error: boolean;
+begin
+  if MessageDlg('Tem certeza que deseja finalizar essa venda?', mtConfirmation,
+    [mbOK, mbCancel], 0) = mrOk then
+  begin
+    Error := false;
+
+    if QrySearchCustomers.IsEmpty then
+    begin
+      ShowMessage('Selecione um Cliente');
+      Error := true;
+    end;
+
+    if QrySales.IsEmpty then
+    begin
+      ShowMessage('Adicione Produtos à sua venda');
+      Error := true;
+    end;
+
+    if UValidator.ParseNumber(LbPaymentTotal.Caption) <> UValidator.ParseNumber
+      (LbTotal.Caption) then
+    begin
+      ShowMessage('Total da Venda é diferente do Total Pago');
+      Error := true;
+    end;
+
+    if not Error then
+    begin
+
+    end;
+  end;
+end;
+
+procedure TFrmNewSale.CbPaymentMethodsChange(Sender: TObject);
+begin
+  EdPlots.Enabled := false;
+  EdPlots.Text := '0';
+
+  if CbPaymentMethods.Text = TPaymentMethod.CREDIT_CARD then
+  begin
+    EdPlots.Enabled := true;
+  end;
+end;
+
+procedure TFrmNewSale.EdDiscountKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  UpdateTotals;
+end;
+
+procedure TFrmNewSale.EdSearchBarcodeEnter(Sender: TObject);
+begin
+  BtSave.Default := false;
+end;
+
+procedure TFrmNewSale.EdSearchBarcodeExit(Sender: TObject);
+begin
+  BtSave.Default := true;
+end;
+
+procedure TFrmNewSale.EdSearchBarcodeKeyPress(Sender: TObject; var Key: Char);
+begin
+  EdSearchProduct.Text := '';
+  BtAddProduct.Enabled := false;
+
+  with QrySearchProducts do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('select * from products where codigo_barras = ' +
+      QuotedStr(EdSearchBarcode.Text));
+    Open;
+  end;
+end;
+
+procedure TFrmNewSale.EdSearchCustomerKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  with QrySearchCustomers do
+  begin
+    Close;
+    ParamByName('name').Value := '%' + EdSearchCustomer.Text + '%';
+    Open;
+  end;
+end;
+
+procedure TFrmNewSale.EdSearchProductKeyPress(Sender: TObject; var Key: Char);
+begin
+  EdSearchBarcode.Text := '';
+  BtAddProduct.Enabled := false;
+
+  with QrySearchProducts do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('select * from products where descricao like ' +
+      QuotedStr('%' + EdSearchProduct.Text + '%'));
+    Open;
+  end;
+end;
+
+procedure TFrmNewSale.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  FrmNewSale := nil;
+end;
+
+procedure TFrmNewSale.FormCreate(Sender: TObject);
+var
+  PaymentMethod: String;
+begin
+  CbPaymentMethods.Items.Clear;
+
+  for PaymentMethod in TPaymentMethod.GetMethods do
+  begin
+    CbPaymentMethods.Items.Add(PaymentMethod);
+  end;
+end;
+
+procedure TFrmNewSale.GrdProductsCellClick(Column: TColumn);
+begin
+  if not GrdProducts.DataSource.DataSet.IsEmpty then
+  begin
+    BtAddProduct.Enabled := true;
+  end
+  else
+  begin
+    BtAddProduct.Enabled := false;
+  end;
+end;
+
+procedure TFrmNewSale.GrdSalesCellClick(Column: TColumn);
+begin
+  if not QrySales.IsEmpty then
+  begin
+    BtRemoveProducts.Enabled := true;
+  end
+  else
+  begin
+    BtRemoveProducts.Enabled := false;
+  end;
+end;
+
+procedure TFrmNewSale.QrySalesCalcFields(DataSet: TDataSet);
+begin
+  with QrySales do
+  begin
+    FieldByName('valor_total').AsFloat := FieldByName('valor').AsFloat *
+      FieldByName('quantidade').AsInteger;
+  end;
+end;
+
+procedure TFrmNewSale.UpdateSalesGrid;
+var
+  Sum: Double;
+begin
+  with QrySales do
+  begin
+    Close;
+    ParamByName('sale').Value := StrToInt(LbSaleId.Caption);
+    Open;
+
+    First;
+
+    Sum := 0;
+
+    while not Eof do
+    begin
+      Sum := Sum + FieldByName('valor_total').AsFloat;
+
+      Next;
+    end;
+
+    LbTotal.Caption := Format('%m', [Sum]);
+
+    SaleTotal := Sum;
+  end;
+end;
+
+procedure TFrmNewSale.UpdateTotals;
+var
+  SumPayments, Discount, Total: Double;
+begin
+  with QryPaymentMethods do
+  begin
+    SumPayments := 0;
+
+    First;
+
+    while not Eof do
+    begin
+      SumPayments := SumPayments + FieldByName('valor').AsFloat;
+
+      Next;
+    end;
+
+    LbPaymentTotal.Caption := Format('%m', [SumPayments]);
+  end;
+
+  Discount := 0;
+
+  if EdDiscount.EditText <> '' then
+  begin
+    if CbDiscountType.Text = 'Porcentagem' then
+    begin
+      Discount :=
+        (SumPayments * StrToFloat(UValidator.UnmaskNumber
+        (EdDiscount.EditText))) / 100;
+    end
+    else
+    begin
+      Discount := StrToFloat(UValidator.UnmaskNumber(EdDiscount.EditText));
+    end;
+  end;
+
+  LbDiscount.Caption := Format('-%m', [Discount]);
+
+  Total := SumPayments - Discount;
+
+  LbFinalValue.Caption := Format('%m', [Total]);
+end;
+
+end.

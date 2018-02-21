@@ -25,6 +25,14 @@ type
     TbParametersvalor: TStringField;
     TbProductsvencimento: TDateField;
     TbCustomers: TFDTable;
+    TbSales: TFDTable;
+    TbSalesid: TFDAutoIncField;
+    TbSalescreated: TDateTimeField;
+    TbSalescustomer_id: TIntegerField;
+    TbSalesdraft: TBooleanField;
+    TbSalesProducts: TFDTable;
+    TbPaymentMethods: TFDTable;
+    TbSalesdesconto: TBCDField;
   private
     { Private declarations }
   public

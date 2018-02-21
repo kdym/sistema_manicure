@@ -90,4 +90,54 @@ object DmManicure: TDmManicure
     Left = 192
     Top = 96
   end
+  object TbSales: TFDTable
+    Active = True
+    IndexFieldNames = 'id'
+    Connection = Connection
+    UpdateOptions.UpdateTableName = 'sales'
+    TableName = 'sales'
+    Left = 264
+    Top = 96
+    object TbSalesid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object TbSalescreated: TDateTimeField
+      FieldName = 'created'
+      Origin = 'created'
+    end
+    object TbSalescustomer_id: TIntegerField
+      FieldName = 'customer_id'
+      Origin = 'customer_id'
+    end
+    object TbSalesdraft: TBooleanField
+      FieldName = 'draft'
+      Origin = 'draft'
+    end
+    object TbSalesdesconto: TBCDField
+      FieldName = 'desconto'
+      Origin = 'desconto'
+      Precision = 10
+      Size = 2
+    end
+  end
+  object TbSalesProducts: TFDTable
+    Active = True
+    IndexFieldNames = 'id'
+    Connection = Connection
+    UpdateOptions.UpdateTableName = 'sales_products'
+    TableName = 'sales_products'
+    Left = 336
+    Top = 96
+  end
+  object TbPaymentMethods: TFDTable
+    Active = True
+    IndexFieldNames = 'id'
+    Connection = Connection
+    UpdateOptions.UpdateTableName = 'payment_methods'
+    TableName = 'payment_methods'
+    Left = 40
+    Top = 160
+  end
 end
